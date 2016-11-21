@@ -1,3 +1,6 @@
+#include <MPU9250.h>
+#include <quaternionFilters.h>
+
 /* MPU9250 Basic Example Code
  by: Kris Winer
  date: April 1, 2014
