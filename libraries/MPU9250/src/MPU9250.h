@@ -209,10 +209,6 @@ class MPU9250
     uint8_t Mmode = 0x02;
 
   public:
-    float pitch, yaw, roll;
-    float temperature;   // Stores the real internal chip temperature in Celsius
-    int16_t tempCount;   // Temperature raw count output
-    uint32_t delt_t = 0; // Used to control display output rate
 
     uint32_t count = 0, sumCount = 0; // used to control display output rate
     float deltat = 0.0f, sum = 0.0f;  // integration interval for both filter schemes
