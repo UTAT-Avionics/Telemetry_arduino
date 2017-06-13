@@ -241,6 +241,7 @@ class MPU9250
     void initAK8963(float *);
     void initMPU9250();
     void calibrateMPU9250(float * gyroBias, float * accelBias);
+    void magcalMPU9250(float * dest1, float * dest2);
     void MPU9250SelfTest(float * destination);
     void writeByte(uint8_t, uint8_t, uint8_t);
     uint8_t readByte(uint8_t, uint8_t);

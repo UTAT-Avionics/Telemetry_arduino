@@ -127,21 +127,24 @@ void setup()
     byte d = myIMU.readByte(AK8963_ADDRESS, WHO_AM_I_AK8963);
     Serial.print(F("AK8963 "));Serial.print(d, HEX);Serial.print(" == ");Serial.println(0x48, HEX);
 
-    // Get magnetometer calibration from AK8963 ROM
-    myIMU.initAK8963(myIMU.factoryMagCalibration);
-    // Initialize device for active mode read of magnetometer
-    Serial.println(F("AK8963 initialized for active data mode...."));
+    float hardIronCorrect[]={0,0,0}; float softIronCorrect[]={0,0,0};
+    myIMU.magcalMPU9250(hardIronCorrect, softIronCorrect);
 
-    if (SerialDebug)
-    {
-      //  Serial.println("Calibration values: ");
-      Serial.print(F("X-Axis factory sensitivity adjustment value "));
-      Serial.println(myIMU.factoryMagCalibration[0], 2);
-      Serial.print(F("Y-Axis factory sensitivity adjustment value "));
-      Serial.println(myIMU.factoryMagCalibration[1], 2);
-      Serial.print(F("Z-Axis factory sensitivity adjustment value "));
-      Serial.println(myIMU.factoryMagCalibration[2], 2);
-    }
+    // Get magnetometer calibration from AK8963 ROM
+//    myIMU.initAK8963(myIMU.MagCalibration);
+//    // Initialize device for active mode read of magnetometer
+//    Serial.println(F("AK8963 initialized for active data mode...."));
+//
+//    if (SerialDebug)
+//    {
+//      //  Serial.println("Calibration values: ");
+//      Serial.print(F("X-Axis factory sensitivity adjustment value "));
+//      Serial.println(myIMU.MagCalibration[0], 2);
+//      Serial.print(F("Y-Axis factory sensitivity adjustment value "));
+//      Serial.println(myIMU.MagCalibration[1], 2);
+//      Serial.print(F("Z-Axis factory sensitivity adjustment value "));
+//      Serial.println(myIMU.MagCalibration[2], 2);
+//    }
 
     // Get sensor resolutions, only need to do this once
     myIMU.getAres();
@@ -150,16 +153,16 @@ void setup()
 
     // The next call delays for 4 seconds, and then records about 15 seconds of
     // data to calculate bias and scale.
-    myIMU.magCalMPU9250(myIMU.magBias, myIMU.magScale);
-    Serial.println("AK8963 mag biases (mG)");
-    Serial.println(myIMU.magBias[0]);
-    Serial.println(myIMU.magBias[1]);
-    Serial.println(myIMU.magBias[2]);
-
-    Serial.println("AK8963 mag scale (mG)");
-    Serial.println(myIMU.magScale[0]);
-    Serial.println(myIMU.magScale[1]);
-    Serial.println(myIMU.magScale[2]);
+//    myIMU.magCalMPU9250(myIMU.magBias, myIMU.magScale);
+//    Serial.println("AK8963 mag biases (mG)");
+//    Serial.println(myIMU.magBias[0]);
+//    Serial.println(myIMU.magBias[1]);
+//    Serial.println(myIMU.magBias[2]);
+//
+//    Serial.println("AK8963 mag scale (mG)");
+//    Serial.println(myIMU.magScale[0]);
+//    Serial.println(myIMU.magScale[1]);
+//    Serial.println(myIMU.magScale[2]);
     delay(2000); // Add delay to see results before serial spew of data
 
   } // if (c == 0x71)
@@ -192,7 +195,7 @@ void loop()
   // Must be called before updating quaternions!
   myIMU.updateTime();
 
-  if (millis() - myIMU.count > 500)
+  if (millis() - myIMU.count > 1500)
   {
     // Write format
     // millis, ax, ay, az
